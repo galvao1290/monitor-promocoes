@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block titulo %}Lojas — Monitor de Promoções{% endblock %}
+{% block conteudo %}
+<h1>Lojas</h1>
+
+<article>
+  {% if editando %}
+  <h3>Editar loja</h3>
+  <form method="post" action="/lojas/{{ editando.id }}/editar">
+  {% else %}
+  <h3>Nova loja</h3>
+  <form method="post" action="/lojas">
+  {% endif %}
+    <div class="grid">
+      <label>Nome *
+        <input name="nome" required value="{{ editando.nome if editando else '' }}">
+      </label>
+      <label>Site
+        <input name="site" placeholder="https://..." value="{{ (editando.site or '') if editando else '' }}">
+      </label>
+    </div>
+    <button type="submit">Salvar</button>
+    {% if editando %}<a href="/lojas" role="button" class="secondary">Cancelar</a>{% endif %}
+  </form>
+</article>
+
+<table>
+  <thead><tr><th>Nome</th><th>Site</th><th>Produtos vinculados</th><th>Ações</th></tr></thead>
+  <tbody>
+  {% for loja in lojas %}
+    <tr>
+      <td>{{ loja.nome }}</td>
+      <td>{% if loja.site %}<a href="{{ loja.site }}" target="_blank">{{ loja.site }}</a>{% else %}—{% endif %}</td>
+      <td>{{ loja.produtos|length }}</td>
+      <td>
+        <a href="/lojas/{{ loja.id }}/editar" role="button" class="outline">Editar</a>
+        <form method="post" action="/lojas/{{ loja.id }}/excluir">
+          <button type="submit" class="secondary outline">Excluir</button>
+        </form>
+      </td>
+    </tr>
+  {% else %}
+    <tr><td colspan="4">Nenhuma loja cadastrada.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

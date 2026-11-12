@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block titulo %}Categorias — Monitor de Promoções{% endblock %}
+{% block conteudo %}
+<h1>Categorias</h1>
+
+<article>
+  {% if editando %}
+  <h3>Editar categoria</h3>
+  <form method="post" action="/categorias/{{ editando.id }}/editar">
+  {% else %}
+  <h3>Nova categoria</h3>
+  <form method="post" action="/categorias">
+  {% endif %}
+    <div class="grid">
+      <label>Nome *
+        <input name="nome" required value="{{ editando.nome if editando else '' }}">
+      </label>
+      <label>Descrição
+        <input name="descricao" value="{{ (editando.descricao or '') if editando else '' }}">
+      </label>
+    </div>
+    <button type="submit">Salvar</button>
+    {% if editando %}<a href="/categorias" role="button" class="secondary">Cancelar</a>{% endif %}
+  </form>
+</article>
+
+<table>
+  <thead><tr><th>Nome</th><th>Descrição</th><th>Produtos vinculados</th><th>Ações</th></tr></thead>
+  <tbody>
+  {% for categoria in categorias %}
+    <tr>
+      <td>{{ categoria.nome }}</td>
+      <td>{{ categoria.descricao or "—" }}</td>
+      <td>{{ categoria.produtos|length }}</td>
+      <td>
+        <a href="/categorias/{{ categoria.id }}/editar" role="button" class="outline">Editar</a>
+        <form method="post" action="/categorias/{{ categoria.id }}/excluir">
+          <button type="submit" class="secondary outline">Excluir</button>
+        </form>
+      </td>
+    </tr>
+  {% else %}
+    <tr><td colspan="4">Nenhuma categoria cadastrada.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

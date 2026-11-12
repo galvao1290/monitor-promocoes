@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}Monitor de Promoções{% endblock %}</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.0.6/css/pico.min.css">
+  <style>
+    .promo { color: #2e7d32; font-weight: bold; }
+    .aguardando { color: #888; }
+    td form { display: inline; margin: 0; }
+    td form button, td a[role=button] { padding: .2rem .6rem; margin: 0 .2rem 0 0; font-size: .85rem; }
+    .erro { background: #fdecea; color: #b71c1c; padding: .8rem 1rem; border-radius: .4rem; }
+  </style>
+</head>
+<body>
+  <header class="container">
+    <nav>
+      <ul><li><strong>Monitor de Promoções</strong></li></ul>
+      <ul>
+        <li><a href="/">Promoções</a></li>
+        <li><a href="/produtos">Produtos</a></li>
+        <li><a href="/lojas">Lojas</a></li>
+        <li><a href="/categorias">Categorias</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="container">
+    {% if erro %}<p class="erro" role="alert">{{ erro }}</p>{% endif %}
+    {% block conteudo %}{% endblock %}
+  </main>
+  <footer class="container"><small>Monitor de Promoções — Miguel Galvão Moreira da Silva</small></footer>
+</body>
+</html>
