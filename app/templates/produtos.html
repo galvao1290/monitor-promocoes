@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block titulo %}Produtos — Monitor de Promoções{% endblock %}
+{% block conteudo %}
+<h1>Produtos</h1>
+<p><a href="/produtos/novo" role="button">Novo produto</a></p>
+
+<table>
+  <thead>
+    <tr><th>Nome</th><th>Loja</th><th>Categoria</th><th>Preço-alvo</th><th>Preço atual</th><th>Status</th><th>Ações</th></tr>
+  </thead>
+  <tbody>
+  {% for linha in linhas %}
+    {% set p = linha.produto %}
+    <tr>
+      <td><a href="/produtos/{{ p.id }}">{{ p.nome }}</a></td>
+      <td>{{ p.loja.nome }}</td>
+      <td>{{ p.categoria.nome }}</td>
+      <td>{{ p.preco_alvo|moeda }}</td>
+      <td>{{ linha.preco_atual|moeda }}</td>
+      <td>
+        {% if linha.em_promocao %}<span class="promo">Em promoção</span>
+        {% else %}<span class="aguardando">Aguardando</span>{% endif %}
+      </td>
+      <td>
+        <a href="/produtos/{{ p.id }}" role="button" class="outline">Ver</a>
+        <a href="/produtos/{{ p.id }}/editar" role="button" class="outline">Editar</a>
+        <form method="post" action="/produtos/{{ p.id }}/excluir">
+          <button type="submit" class="secondary outline">Excluir</button>
+        </form>
+      </td>
+    </tr>
+  {% else %}
+    <tr><td colspan="7">Nenhum produto cadastrado.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

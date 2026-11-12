@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block titulo %}{{ produto.nome }} — Monitor de Promoções{% endblock %}
+{% block conteudo %}
+<h1>{{ produto.nome }}</h1>
+
+<article>
+  <div class="grid">
+    <div><small>Loja</small><br><strong>{{ produto.loja.nome }}</strong></div>
+    <div><small>Categoria</small><br><strong>{{ produto.categoria.nome }}</strong></div>
+    <div><small>Preço-alvo</small><br><strong>{{ produto.preco_alvo|moeda }}</strong></div>
+    <div><small>Preço atual</small><br><strong>{{ preco_atual|moeda }}</strong></div>
+    <div><small>Menor preço</small><br><strong>{{ menor_preco|moeda }}</strong></div>
+    <div><small>Status</small><br>
+      {% if em_promocao %}<span class="promo">Em promoção</span>
+      {% else %}<span class="aguardando">Aguardando</span>{% endif %}
+    </div>
+  </div>
+  {% if produto.url %}<p><a href="{{ produto.url }}" target="_blank">Abrir página do produto</a></p>{% endif %}
+  <a href="/produtos/{{ produto.id }}/editar" role="button" class="outline">Editar produto</a>
+</article>
+
+<h2>Registrar preço</h2>
+<form method="post" action="/produtos/{{ produto.id }}/precos">
+  <fieldset role="group">
+    <input name="preco" required placeholder="Preço encontrado, ex.: 89,90">
+    <button type="submit">Registrar</button>
+  </fieldset>
+</form>
+
+<h2>Histórico de preços</h2>
+<table>
+  <thead><tr><th>Data</th><th>Preço</th><th>Ações</th></tr></thead>
+  <tbody>
+  {% for h in produto.historico %}
+    <tr>
+      <td>{{ h.data_registro|data_hora }}</td>
+      <td>{{ h.preco|moeda }}</td>
+      <td>
+        <form method="post" action="/precos/{{ h.id }}/excluir">
+          <button type="submit" class="secondary outline">Excluir</button>
+        </form>
+      </td>
+    </tr>
+  {% else %}
+    <tr><td colspan="3">Nenhum preço registrado ainda.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

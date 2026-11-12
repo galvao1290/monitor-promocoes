@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block titulo %}{{ "Editar" if produto else "Novo" }} produto — Monitor de Promoções{% endblock %}
+{% block conteudo %}
+<h1>{{ "Editar produto" if produto else "Novo produto" }}</h1>
+
+{% if not lojas or not categorias %}
+<article>
+  Cadastre pelo menos uma <a href="/lojas">loja</a> e uma <a href="/categorias">categoria</a>
+  antes de cadastrar produtos.
+</article>
+{% endif %}
+
+<form method="post" action="{{ '/produtos/%d/editar' % produto.id if produto else '/produtos' }}">
+  <label>Nome *
+    <input name="nome" required value="{{ dados.nome or '' }}">
+  </label>
+  <label>Link do produto
+    <input name="url" placeholder="https://..." value="{{ dados.url or '' }}">
+  </label>
+  <label>Preço-alvo (R$) *
+    <input name="preco_alvo" required placeholder="Ex.: 1.299,90" value="{{ dados.preco_alvo or '' }}">
+  </label>
+  <div class="grid">
+    <label>Loja *
+      <select name="loja_id" required>
+        <option value="">Selecione...</option>
+        {% for loja in lojas %}
+        <option value="{{ loja.id }}" {{ "selected" if dados.loja_id == loja.id }}>{{ loja.nome }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Categoria *
+      <select name="categoria_id" required>
+        <option value="">Selecione...</option>
+        {% for cat in categorias %}
+        <option value="{{ cat.id }}" {{ "selected" if dados.categoria_id == cat.id }}>{{ cat.nome }}</option>
+        {% endfor %}
+      </select>
+    </label>
+  </div>
+  <button type="submit">Salvar</button>
+  <a href="{{ '/produtos/%d' % produto.id if produto else '/produtos' }}" role="button" class="secondary">Cancelar</a>
+</form>
+{% endblock %}
