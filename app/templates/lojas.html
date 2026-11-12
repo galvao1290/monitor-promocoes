@@ -16,7 +16,7 @@
         <input name="nome" required value="{{ editando.nome if editando else '' }}">
       </label>
       <label>Site
-        <input name="site" placeholder="https://..." value="{{ (editando.site or '') if editando else '' }}">
+        <input name="site" type="url" placeholder="https://..." value="{{ (editando.site or '') if editando else '' }}">
       </label>
     </div>
     <button type="submit">Salvar</button>

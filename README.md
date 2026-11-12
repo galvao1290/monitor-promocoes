@@ -69,6 +69,7 @@ app/
   templating.py    # Jinja2 e formatação em Real (R$)
   routers/         # rotas de cada caso de uso
   templates/       # páginas HTML
+  static/          # Pico.css (servido localmente, funciona offline)
 tests/             # testes automatizados
 seed.py            # dados de exemplo
 docs/              # documentação (PDF) e diagramas UML

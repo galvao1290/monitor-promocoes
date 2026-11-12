@@ -1,4 +1,6 @@
 """Regras de negócio: interpretação de preços e detecção de promoções."""
+import math
+import re
 from dataclasses import dataclass
 
 from sqlalchemy.orm import Session, selectinload
@@ -9,15 +11,17 @@ MSG_PRECO_INVALIDO = "Informe um preço válido maior que zero."
 
 
 def parse_preco(texto: str) -> float:
-    """Converte '1.299,90', '19,90', 'R$ 10' ou '25.5' em float (2 casas)."""
+    """Converte '1.299,90', '1.299', '19,90', 'R$ 10' ou '25.5' em float (2 casas)."""
     limpo = (texto or "").replace("R$", "").strip().replace(" ", "")
     if "," in limpo:
         limpo = limpo.replace(".", "").replace(",", ".")
+    elif re.fullmatch(r"\d{1,3}(\.\d{3})+", limpo):
+        limpo = limpo.replace(".", "")  # "1.299" = mil duzentos e noventa e nove
     try:
         valor = round(float(limpo), 2)
     except ValueError:
         raise ValueError(MSG_PRECO_INVALIDO) from None
-    if valor <= 0:
+    if not math.isfinite(valor) or valor <= 0:
         raise ValueError(MSG_PRECO_INVALIDO)
     return valor
 

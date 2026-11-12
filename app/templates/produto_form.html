@@ -15,7 +15,7 @@
     <input name="nome" required value="{{ dados.nome or '' }}">
   </label>
   <label>Link do produto
-    <input name="url" placeholder="https://..." value="{{ dados.url or '' }}">
+    <input name="url" type="url" placeholder="https://..." value="{{ dados.url or '' }}">
   </label>
   <label>Preço-alvo (R$) *
     <input name="preco_alvo" required placeholder="Ex.: 1.299,90" value="{{ dados.preco_alvo or '' }}">
