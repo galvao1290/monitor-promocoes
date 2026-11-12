@@ -32,7 +32,7 @@
       <td>{{ loja.nome }}</td>
       <td>{% if loja.site %}<a href="{{ loja.site }}" target="_blank">{{ loja.site }}</a>{% else %}—{% endif %}</td>
       <td>{{ loja.produtos|length }}</td>
-      <td>
+      <td class="acoes">
         <a href="/lojas/{{ loja.id }}/editar" role="button" class="outline">Editar</a>
         <form method="post" action="/lojas/{{ loja.id }}/excluir">
           <button type="submit" class="secondary outline">Excluir</button>

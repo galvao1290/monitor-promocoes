@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from app.database import init_db
-from app.routers import categorias, lojas, produtos
+from app.routers import categorias, lojas, produtos, promocoes
 
 
 @asynccontextmanager
@@ -15,6 +15,7 @@ async def lifespan(_app: FastAPI):
 
 app = FastAPI(title="Monitor de Promoções", lifespan=lifespan)
 
+app.include_router(promocoes.router)
 app.include_router(lojas.router)
 app.include_router(categorias.router)
 app.include_router(produtos.router)

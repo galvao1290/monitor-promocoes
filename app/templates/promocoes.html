@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h1>Promoções ativas</h1>
+<p>Produtos cujo último preço registrado está igual ou abaixo do preço-alvo.</p>
+
+{% if promocoes %}
+<table>
+  <thead>
+    <tr><th>Produto</th><th>Loja</th><th>Preço atual</th><th>Preço-alvo</th><th>Economia</th><th>Menor preço</th></tr>
+  </thead>
+  <tbody>
+  {% for item in promocoes %}
+    <tr>
+      <td><a href="/produtos/{{ item.produto.id }}">{{ item.produto.nome }}</a></td>
+      <td>{{ item.produto.loja.nome }}</td>
+      <td class="promo num">{{ item.preco_atual|moeda }}</td>
+      <td class="num">{{ item.produto.preco_alvo|moeda }}</td>
+      <td class="num">{{ item.economia|moeda }}</td>
+      <td class="num">{{ item.menor_preco|moeda }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<article>Nenhum produto em promoção no momento.</article>
+{% endif %}
+{% endblock %}
