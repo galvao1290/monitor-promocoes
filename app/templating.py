@@ -8,9 +8,9 @@ templates = Jinja2Templates(directory=Path(__file__).parent / "templates")
 
 
 def moeda(valor: float | None) -> str:
-    """Formata em Real: 1299.9 -> 'R$ 1.299,90'; None -> '—'."""
+    """Formata em Real: 1299.9 -> 'R$ 1.299,90'; None -> '-'."""
     if valor is None:
-        return "—"
+        return "-"
     texto = f"{valor:,.2f}"  # formato americano: 1,299.90
     return "R$ " + texto.replace(",", "X").replace(".", ",").replace("X", ".")
 
