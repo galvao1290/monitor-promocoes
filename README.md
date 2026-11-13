@@ -1,81 +1,45 @@
 # Monitor de Promoções
 
-**Trabalho individual — Miguel Galvão Moreira da Silva**
+Projeto de Desenvolvimento de Software I e II - UniFil
 
-Projeto das disciplinas **Projeto de Desenvolvimento de Software I e II** — UniFil (Centro Universitário Filadélfia), Londrina, 2026.
+Aluno: Miguel Galvão Moreira da Silva (trabalho individual)
 
-## Sobre o sistema
+## Sobre
 
-Aplicação web para acompanhar preços de produtos que você quer comprar. Para cada produto você define um
-**preço-alvo** e registra os preços que encontra nas lojas. O sistema guarda o histórico e mostra,
-na página inicial, os produtos **em promoção**: aqueles cujo último preço registrado está igual ou
-abaixo do preço-alvo.
+Sistema web pra acompanhar o preço de produtos que eu quero comprar. Cadastro o produto com um preço-alvo e vou registrando os preços que encontro nas lojas. Quando o último preço registrado fica igual ou abaixo do preço-alvo, o produto aparece na tela de promoções.
 
-### Funcionalidades (casos de uso)
-
-| Caso de uso | Descrição |
-|---|---|
-| UC01 Gerenciar Lojas | Cadastrar, listar, editar e excluir lojas |
-| UC02 Gerenciar Categorias | Cadastrar, listar, editar e excluir categorias |
-| UC03 Gerenciar Produtos | Cadastrar, listar, editar, excluir e ver detalhes de produtos |
-| UC04 Registrar Preço | Registrar o preço encontrado e excluir registros do histórico |
-| UC05 Consultar Promoções | Ver produtos com preço atual ≤ preço-alvo, economia e menor preço |
+Tem CRUD de lojas, categorias, produtos e do histórico de preços.
 
 ## Tecnologias
 
 - Python 3.12
-- FastAPI + Jinja2 (páginas HTML renderizadas no servidor)
-- SQLAlchemy 2 (ORM) + SQLite (banco de dados relacional em arquivo)
-- Pico.css (estilo)
-- pytest (testes automatizados)
+- FastAPI
+- Jinja2 (páginas HTML)
+- SQLAlchemy
+- SQLite
+- Pico.css
+- pytest
 
-## Como executar
+## Como rodar
 
-```bash
-# 1. Criar e ativar o ambiente virtual
+```
 python -m venv .venv
-.venv\Scripts\activate          # Windows
-# source .venv/bin/activate     # Linux/macOS
-
-# 2. Instalar as dependências
+.venv\Scripts\activate
 pip install -r requirements.txt
-
-# 3. (Opcional) Popular o banco com dados de exemplo
 python seed.py
-
-# 4. Iniciar o servidor
 uvicorn app.main:app --reload
 ```
 
-Acesse **http://localhost:8000**. A documentação automática da API (Swagger) fica em
-http://localhost:8000/docs.
+Depois é só abrir http://localhost:8000
 
-O banco `monitor.db` é criado automaticamente na primeira execução.
+O `seed.py` é opcional, ele só coloca alguns dados de exemplo no banco. O banco (monitor.db) é criado sozinho na primeira vez que roda.
 
-## Testes
+Pra rodar os testes:
 
-```bash
+```
 pytest
-```
-
-## Estrutura
-
-```
-app/
-  main.py          # cria a aplicação e registra as rotas
-  database.py      # conexão com o SQLite
-  models.py        # entidades: Loja, Categoria, Produto, HistoricoPreco
-  services.py      # regras: preço atual, menor preço, promoções
-  templating.py    # Jinja2 e formatação em Real (R$)
-  routers/         # rotas de cada caso de uso
-  templates/       # páginas HTML
-  static/          # Pico.css (servido localmente, funciona offline)
-tests/             # testes automatizados
-seed.py            # dados de exemplo
-docs/              # documentação (PDF) e diagramas UML
 ```
 
 ## Documentação
 
-- [Documentação completa (PDF)](docs/Documentacao-Monitor-Promocoes.pdf)
-- [Diagramas UML (fontes PlantUML)](docs/diagramas/)
+A documentação (requisitos, casos de uso, DER e diagramas) está em `docs/Documentacao-Monitor-Promocoes.pdf`. Os arquivos dos diagramas ficam em `docs/diagramas`.
