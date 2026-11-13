@@ -18,7 +18,6 @@ Tem CRUD de lojas, categorias, produtos e do histórico de preços.
 - SQLAlchemy
 - SQLite
 - Pico.css
-- pytest
 
 ## Como rodar
 
@@ -34,12 +33,6 @@ Depois é só abrir http://localhost:8000
 
 O `seed.py` é opcional, ele só coloca alguns dados de exemplo no banco. O banco (monitor.db) é criado sozinho na primeira vez que roda.
 
-Pra rodar os testes:
-
-```
-pytest
-```
-
 ## Documentação
 
-A documentação (requisitos, casos de uso, DER e diagramas) está em `docs/Documentacao-Monitor-Promocoes.pdf`. Os arquivos dos diagramas ficam em `docs/diagramas`.
+A documentação (requisitos, casos de uso, DER e diagramas) está em `docs/Documentacao-Monitor-Promocoes.pdf`.
